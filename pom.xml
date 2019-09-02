@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.rmi</groupId>
+	<artifactId>rmi</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>rmi</name>
+	<packaging>pom</packaging>
+
+
+	<modules>
+		<module>rmi-spring-server</module>
+		<module>rmi-spring-client</module>
+		<module>rmi-common</module>
+	</modules>
+
+	<!--并不是每个人都喜欢继承自spring-boot-starter-parent POM。您可能有您需要使用的自己的公司标准parent，
+	或者您可能更喜欢显式声明所有的Maven配置。
+	如果你不想使用spring-boot-starter-parent，您仍然可以通过使用scope = import依赖关系来保持依赖关系管理：-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.7.RELEASE</version>
+	</parent>
+
+
+	<properties>
+		<java.version>1.8</java.version>
+		<spring.version>5.1.6.RELEASE</spring.version>
+		<lombok.version>1.18.2</lombok.version>
+		<servlet.version>4.0.1</servlet.version>
+		<javax.persistence.version>2.2</javax.persistence.version>
+		<spring.data.jpa.version>2.1.8.RELEASE</spring.data.jpa.version>
+		<junit.version>4.12</junit.version>
+		<commons.collections4.version>4.3</commons.collections4.version>
+		<commons.lang3.version>3.9</commons.lang3.version>
+	</properties>
+
+	<!-- dependencyManagement 元素来提供了一种管理依赖版本号的方式，只是声明依赖，
+	并【不实际引入】，子项目需要显示的声明需要用的依赖才能够进行使用依赖。
+	dependencies相对于dependencyManagement，所有声明在dependencies里的依赖都会自动引入，并默认被所有的子项目继承。
+
+	import（Maven2.0.9及以上）
+    import范围只适用于pom文件中的<dependencyManagement>部分。表明指定的POM必须使用<dependencyManagement>部分的依赖。
+    因为依赖已经被替换，所以使用import范围的依赖并不影响依赖传递。
+	-->
+	<!--<dependencyManagement>-->
+		<!--<dependencies>-->
+			<!--<dependency>-->
+				<!--<groupId>org.springframework.boot</groupId>-->
+				<!--<artifactId>spring-boot-dependencies</artifactId>-->
+				<!--<version>2.1.7.RELEASE</version>-->
+				<!--<type>pom</type>-->
+				<!--<scope>import</scope>-->
+			<!--</dependency>-->
+		<!--</dependencies>-->
+	<!--</dependencyManagement>-->
+
+	<!--上边的配置，同样可以起到继承 Parent POM 方式相同的作用，
+	同时解决了多 Parent 不支持的问题。这里要提一点的是，
+	对于 Muti 项目各个子模块中不需要再次配置依赖 spring-boot-dependencies，
+	只需要继承父项目 POM 即可（这里因为父 POM 已经继承了该依赖，子模块继承传递）。
+	如果在子模块中再次添加了该依赖如下，那么编译会报错。
+
+	所以，子模块不需要再次添加该依赖。还要指出的是，父项目继承了 spring-boot-dependencies 依赖后，
+	子模块继承父项目 POM，那么子模块使用到相关依赖的时候，不需要指定 version 版本了-->
+
+	<dependencyManagement>
+	  <dependencies>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-test</artifactId>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-autoconfigure</artifactId>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data.jpa.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>${javax.persistence.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons.collections4.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<goals>-->
+							<!--<goal>repackage</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--上面的配置就是Spring Boot Maven插件，Spring Boot Maven插件提供了许多方便的功能：
+                把项目打包成一个可执行的超级JAR（uber-JAR）,包括把应用程序的所有依赖打入JAR文件内，
+                并为JAR添加一个描述文件，其中的内容能让你用java -jar来运行应用程序。
+
+                注意：如果更换父 parent 加入依赖管理后, 可以正常运行, 但是打出的包是不包含依赖的。
+                也就是说, 我们不能直接使用 jar -jar demo.jar 的方式启动项目
+                所以我们要在这个插件下面加入
+                <executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+                -->
+			</plugin>
+			<plugin>
+				<!-- 指定maven编译的jdk版本,如果不指定,maven3默认用jdk 1.5 maven2默认用jdk1.3 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<!-- 一般而言，target与source是保持一致的，但是，
+                    有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，
+                    源代码中不能使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
+					<source>1.8</source> <!-- 源代码使用的JDK版本 -->
+					<target>1.8</target> <!-- 需要生成的目标class文件的编译版本 -->
+					<encoding>UTF-8</encoding> <!-- 字符集编码 -->
+				</configuration>
+			</plugin>
+
+			<!-- maven install 跳过测试  等价于命令 mvn install -Dmaven.test.skip = true-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
