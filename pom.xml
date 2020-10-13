@@ -32,7 +32,7 @@
 		<servlet.version>4.0.1</servlet.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
 		<spring.data.jpa.version>2.1.8.RELEASE</spring.data.jpa.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<commons.collections4.version>4.3</commons.collections4.version>
 		<commons.lang3.version>3.9</commons.lang3.version>
 	</properties>
